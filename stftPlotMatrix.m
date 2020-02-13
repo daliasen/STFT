@@ -1,7 +1,7 @@
 function[h_gcf] = stftPlotMatrix(stfts,paramsSTFT,fs,plot_title)
 
 % Input:
-%   1) stft - matrix produced with the stft function (single-sided)
+%   1) stfts - matrices produced with the stft function (single-sided)
 %   2) paramsSTFT.w - window size that was used in the stft function (for 
 %       the time axis)
 %   3) paramsSTFT.overlap - percentage of window overlap that was used in 
