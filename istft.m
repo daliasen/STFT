@@ -1,7 +1,8 @@
-function[time_domain,stft_double] = istft(stft,w,overlap)
+function [time_domain,stft_double] = istft(stft,w,overlap)
 
 % Input:
-%   1) stft - matrix produced with the stft function (single sided)
+%   1) stft - matrix produced with the stft function (single sided),
+%       dimensions: frequency bins x time segments
 %   2) w - window size that was used in the stft function
 %   3) overlap - overlap percentage that was used in the stft function
 %
