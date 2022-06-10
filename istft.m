@@ -1,14 +1,19 @@
 function [time_domain,stft_double] = istft(stft,w,overlap)
 
 % Input:
-%   1) stft - matrix produced with the stft function (single sided),
-%       dimensions: frequency bins x time segments
+%   1) stft - matrix containing complex values produced with the stft
+%       function (single sided), dimensions:
+%           frequency bins x time segments
 %   2) w - window size that was used in the stft function
 %   3) overlap - overlap percentage that was used in the stft function
 %
 % Output: 
 %   1) time_domain - real time domain signal
 %   2) stft_double - double sided spectrum
+
+if isreal(stft)
+    error('The stft matrix should be complex.')
+end
 
 % Allocate memory for double-sided spectrum:
 [rows,columns] = size(stft);

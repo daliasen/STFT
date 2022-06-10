@@ -2,7 +2,7 @@ function[time_domain] = istftMatrix(stftMatrix,w,overlap)
 
 % Input:
 %   1) stftMatrix - a tensor containing matrices produced with the stft 
-%       function (single-sided)
+%       function (single-sided), should be complex
 %   2) w - window size that was used in the stft function
 %   3) overlap - overlap percentage that was used in the stft function
 %
