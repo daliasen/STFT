@@ -11,7 +11,7 @@ function [time_domain,stft_double] = istft(stft,w,overlap)
 %   1) time_domain - real time domain signal
 %   2) stft_double - double sided spectrum
 
-if isreal(stft)
+if isreal(stft) && any(any(stft))
     error('The stft matrix should be complex.')
 end
 
