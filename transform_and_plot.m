@@ -12,15 +12,13 @@ function [ax, h] = transform_and_plot(x, w, overlap, fs, plot_title)
 %   Amplitude spectrogram in color scale
 %   1) ax - axis handle
 %   2) h - colorbar
-%
-paramsSTFT.w = w;
-paramsSTFT.overlap = overlap;
-x = zeroPadMatrix(x, paramsSTFT);
 
-[stft_single, ~] = stft(x, w, paramsSTFT.overlap);
+x = zeroPad(x, w, overlap);
+
+[stft_single, ~] = stft(x, w, overlap);
 [ax, h] = stftPlot(stft_single, ...
-                   paramsSTFT.w, ...
-                   paramsSTFT.overlap, ...
+                   w, ...
+                   overlap, ...
                    fs, ...
                    plot_title);
 end
