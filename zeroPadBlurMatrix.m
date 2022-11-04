@@ -1,4 +1,4 @@
-function[Z] = zeroPadBlurMatrix(X,paramsSTFT)
+function [X_padded, paddingAmountSamples] = zeroPadBlurMatrix(X, paramsSTFT)
 
 % Input: 
 %   1) X - a matrix of signals to be processed
@@ -8,10 +8,18 @@ function[Z] = zeroPadBlurMatrix(X,paramsSTFT)
 % Output:
 %   1) Z - zero padded signals so that smearing due to overlap is not lost
 %       (input to the stft function)
+%   2) paddingAmountSamples - number of samples padded to each side of the
+%       signal
 
-[L,R] = size(X);
+w = paramsSTFT.w;
+overlap = paramsSTFT.overlap;
 
-Z = zeros(2*ceil(paramsSTFT.w*paramsSTFT.overlap/100) + L, R); 
+[L, R] = size(X);
+
+paddingAmountSamples = ceil(w * overlap / 100);
+X_padded = zeros(2 * paddingAmountSamples + L, R);
 for i=1:R
-    Z(:,i) = zeroPadBlur(X(:,i),paramsSTFT.w,paramsSTFT.overlap); 
+    X_padded(:,i) = vertcat(zeros(paddingAmountSamples, 1), ...
+                            X(:,i), ...
+                            zeros(paddingAmountSamples, 1));
 end
