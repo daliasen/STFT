@@ -10,4 +10,7 @@ function[zero_padded] = zeroPadBlur(x,w,overlap)
 %   1) zero padded signal so that smearing due to overlap is not lost 
 %       (input to the stft function)
 
-zero_padded = vertcat(zeros(ceil(w*overlap/100), 1), x, zeros(ceil(w*overlap/100), 1));
+padding_amount_samples = ceil(w * overlap / 100);
+zero_padded = vertcat(zeros(padding_amount_samples, 1), ...
+                      x, ...
+                      zeros(padding_amount_samples, 1));
