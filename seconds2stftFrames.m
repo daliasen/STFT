@@ -1,0 +1,9 @@
+function stftFrameIndex = seconds2stftFrames(seconds, ...
+                                             fs, ...
+                                             w, ...
+                                             overlap)
+
+    hop = hopSize(w, overlap);
+    stftFrameIndex = floor((seconds * fs - w / 2) / hop + 1);
+
+end

@@ -1,0 +1,9 @@
+function seconds = stftFrames2seconds(stftFrames, ...
+                                      fs, ...
+                                      w, ...
+                                      overlap)
+
+    hop = hopSize(w, overlap);
+    seconds = ((stftFrames - 1) * hop + w / 2) / fs;
+
+end
