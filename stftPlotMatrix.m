@@ -1,33 +1,45 @@
-function[h_gcf] = stftPlotMatrix(stfts,paramsSTFT,fs,plot_title)
+function h_gcf = stftPlotMatrix(stfts, paramsSTFT, fs, plot_title)
 
 % Input:
 %   1) stfts - matrices produced with the stft function (single-sided)
-%   2) paramsSTFT.w - window size that was used in the stft function (for 
-%       the time axis)
-%   3) paramsSTFT.overlap - percentage of window overlap that was used in 
-%       the stft function (for the time axis)
-%   4) fs - sampling frequency
-%   5) plot_title - title of the plot in single quotes
+%   2) paramsSTFT - a structure with the following fields:
+%       w - window size that was used in the stft function (for
+%           the time axis)
+%       overlap - percentage of window overlap that was used in
+%           the stft function (for the time axis)
+%   3) fs - sampling frequency
+%   4) plot_title - title of the plot in single quotes
 %
 % Output: 
 %   Amplitude spectrogram in color scale
 %   1) h_gcf - gcf handle
 
 [~, ~, R] = size(stfts);
-if R > 6 
-    R = 6;
+
+if R > 6
+    num_subplots = 6;
     warning('only the first 6 signals will be plotted')
+else
+    num_subplots = R;
 end
 
-for i=1:R-1
-        subplot(R,1,i)
-        [ax, h] = stftPlot(stfts(:,:,i),paramsSTFT.w,paramsSTFT.overlap,fs,[plot_title, ' ', num2str(i)]);
+for i=1:num_subplots-1
+        subplot(num_subplots, 1, i)
+        [ax, h] = stftPlot(stfts(:,:,i), ...
+                           paramsSTFT.w, ...
+                           paramsSTFT.overlap, ...
+                           fs, ...
+                           [plot_title ' (' num2str(i) ' out of ' num2str(R) ')']);
         ax.YLabel.String = '';
         ax.XLabel.String = '';
         ax.XTickLabel = '';
         ylabel(h, '');
 end
-subplot(R,1,R)
-stftPlot(stfts(:,:,R),paramsSTFT.w,paramsSTFT.overlap,fs,[plot_title, ' ', num2str(R)]);
+subplot(num_subplots, 1, num_subplots)
+stftPlot(stfts(:,:,num_subplots), ...
+         paramsSTFT.w, ...
+         paramsSTFT.overlap, ...
+         fs, ...
+         [plot_title ' (' num2str(i+1) ' out of ' num2str(R) ')']);
 
 h_gcf = gcf;
